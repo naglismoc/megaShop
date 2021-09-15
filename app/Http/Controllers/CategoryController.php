@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\Parameter;
 use Illuminate\Http\Request;
 
 class CategoryController extends Controller
@@ -23,7 +24,7 @@ class CategoryController extends Controller
         $chain[] = $categories;
        
        
-        return view('categories.index',['categories'=> $categories,'chain'=>$_SESSION['chain']]);
+        return view('category.index',['categories'=> $categories,'chain'=>$_SESSION['chain']]);
     }
 
     public function map(Category $category)
@@ -38,7 +39,7 @@ class CategoryController extends Controller
         $_SESSION['chain'] = $tmpSs;
         // dd($_SESSION['chain'][0]->id);
         $categories = Category::where('category_id','=',$category->id)->get();
-        return view('categories.index',['categories'=> $categories,'chain'=>$_SESSION['chain']]);
+        return view('category.index',['categories'=> $categories,'chain'=>$_SESSION['chain']]);
     }
 
     /**
@@ -87,7 +88,9 @@ class CategoryController extends Controller
      */
     public function edit(Category $category)
     {
-        //
+        $parameters = Parameter::all();
+        $categories = Category::where('id','!=',$category->id)->get();
+        return view('category.edit', ['category' => $category, 'parameters'=>$parameters, 'categories'=>$categories]);
     }
 
     /**
@@ -99,7 +102,14 @@ class CategoryController extends Controller
      */
     public function update(Request $request, Category $category)
     {
-        //
+        
+         $category->name = $request->name;
+         $category->category_id = $request->category_id;
+         $category->save();
+         foreach ($request->parameters as $parameter) {
+            $category->parameters()->attach($parameter);
+         }
+         return redirect()->route('category.index')->with('success_message', 'Sėkmingai pakeistas.');
     }
 
     /**
