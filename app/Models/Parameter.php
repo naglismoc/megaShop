@@ -12,4 +12,8 @@ class Parameter extends Model
     {
         return $this->belongsToMany(Category::class,'category_parameters');
     }
+    public function items()
+    {
+        return $this->belongsToMany(Item::class,'item_parameters')->withPivot(['data']);
+    }
 }

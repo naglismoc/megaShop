@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\Item;
 use App\Models\Parameter;
 use Illuminate\Http\Request;
 
@@ -39,7 +40,14 @@ class CategoryController extends Controller
         $_SESSION['chain'] = $tmpSs;
         // dd($_SESSION['chain'][0]->id);
         $categories = Category::where('category_id','=',$category->id)->get();
-        return view('category.index',['categories'=> $categories,'chain'=>$_SESSION['chain']]);
+        $parameters = Parameter::all();
+        $items = Item::where('category_id','=',$category->id)->get();
+        return view('category.index',[
+            'categories'=> $categories,
+            'chain'=>$_SESSION['chain'],
+            'parameters'=>$parameters,
+            'items'=>$items
+            ]);
     }
 
     /**
@@ -47,9 +55,10 @@ class CategoryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create( $categoryId)
     {
-        //
+        $parameters = Parameter::all();
+       return view('category.create',['categoryId'=>$categoryId,'parameters'=>$parameters]);
     }
 
     /**
@@ -66,7 +75,10 @@ class CategoryController extends Controller
             $category->category_id = $request->category_id;
         }
         $category->save();
-        return redirect()->back();
+        foreach ($request->parameters as $parameter) {
+            $category->parameters()->attach($parameter);
+         }
+        return redirect()->route('category.map',$request->category_id);
     }
 
     /**
@@ -88,6 +100,7 @@ class CategoryController extends Controller
      */
     public function edit(Category $category)
     {
+        // dd($category);
         $parameters = Parameter::all();
         $categories = Category::where('id','!=',$category->id)->get();
         return view('category.edit', ['category' => $category, 'parameters'=>$parameters, 'categories'=>$categories]);

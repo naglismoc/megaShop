@@ -23,9 +23,10 @@ class ItemController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create( $id)
+    public function create(Category $category)
     {
-      dd($id);
+    //   dd($category->parameters);
+        return view('item.create',['category'=>$category]);
     }
 
     /**
@@ -36,7 +37,21 @@ class ItemController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $item = new Item();
+        $item->name = $request->name;
+        $item->price = $request->price;
+        $item->description = $request->description;
+        $item->quantity = $request->quantity;
+        $item->category_id = $request->category_id;
+        $item->discount = $request->discount;
+        $item->save();
+        $category = Category::find($request->category_id);
+        foreach ($category->parameters as $parameter) {
+            $item->parameters()->attach($parameter,['data' => $request->input($parameter->id)]);
+
+
+         }
+        return redirect()->route('category.map',$request->category_id);
     }
 
     /**
@@ -47,7 +62,7 @@ class ItemController extends Controller
      */
     public function show(Item $item)
     {
-        //
+      return view("item.show",['item'=>$item]);
     }
 
     /**
