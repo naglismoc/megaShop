@@ -66,7 +66,7 @@
 
 
             @foreach ($categories as $category)
-            {{-- {{dd($category)}}; --}}
+         
             <tr>
               <td class=""> <a href="{{route('category.map',$category)}}"> {{$category->name}}</a></td>
               {{-- <td class="align-middle text-center">{{$parameter->data_type}}</td> --}}
@@ -94,7 +94,7 @@
     
     
                 @foreach ($items as $item)
-                {{-- {{dd($category)}}; --}}
+               
                 <tr>
                     <td>{{$item->name}}</td>
                   {{-- <td class=""> <a href="{{route('item.map',$item)}}"> {{$item->name}}</a></td> --}}

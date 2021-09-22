@@ -23,7 +23,7 @@ class CategoryController extends Controller
         $categories = Category::whereNull('category_id')->get();
         $chain = [];
         $chain[] = $categories;
-       
+    //    $items = Item::where('category_id','=');
        
         return view('category.index',['categories'=> $categories,'chain'=>$_SESSION['chain']]);
     }
