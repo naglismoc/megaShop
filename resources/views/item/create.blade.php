@@ -12,31 +12,37 @@
                   <div class="form-group">
                       <label>Prekės pavadinimas</label>
                       <input type="text" name="name"  class="form-control">
-                      <small class="form-text text-muted">Parametro pavadinimas.</small>
+                      {{-- <small class="form-text text-muted">Parametro pavadinimas.</small> --}}
                   </div>
                   
                   <div class="form-group">
-                     <label>Prekės pavadinimas</label>
+                     <label>Prekės kaina</label>
                      <input type="text" name="price"  class="form-control">
-                     <small class="form-text text-muted">Parametro pavadinimas.</small>
+                     {{-- <small class="form-text text-muted">Parametro pavadinimas.</small> --}}
                  </div>
                  
                  <div class="form-group">
-                  <label>Prekės pavadinimas</label>
+                  <label>Prekės aprašas</label>
                   <input type="text" name="description"  class="form-control">
-                  <small class="form-text text-muted">Parametro pavadinimas.</small>
-              </div>
+                  {{-- <small class="form-text text-muted">Parametro pavadinimas.</small> --}}
+               </div>     
+
+               <div class="form-group">
+                  <label>Gamintojas</label>
+                  <input type="text" name="manufacturer"  class="form-control">
+                  {{-- <small class="form-text text-muted">Parametro pavadinimas.</small> --}}
+               </div>
               
               <div class="form-group">
-               <label>Prekės pavadinimas</label>
+               <label>Prekės likutis</label>
                <input type="text" name="quantity"  class="form-control">
-               <small class="form-text text-muted">Parametro pavadinimas.</small>
+               {{-- <small class="form-text text-muted">Parametro pavadinimas.</small> --}}
            </div>
            
            <div class="form-group">
-            <label>Prekės pavadinimas</label>
+            <label>Nuolaida</label>
             <input type="text" name="discount"  class="form-control">
-            <small class="form-text text-muted">Parametro pavadinimas.</small>
+            {{-- <small class="form-text text-muted">Parametro pavadinimas.</small> --}}
         </div>
         <input type="hidden" name="category_id" value="{{$category->id}}">
                   @foreach ($category->parameters as $param)

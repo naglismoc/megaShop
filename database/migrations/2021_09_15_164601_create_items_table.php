@@ -16,10 +16,11 @@ class CreateItemsTable extends Migration
         Schema::create('items', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('price');
+            $table->string('manufacturer');
+            $table->decimal('price',10,2);
             $table->text('description');
             $table->integer('quantity');
-            $table->decimal('discount',2);
+            $table->decimal('discount',10,2);
             $table->unsignedBigInteger('category_id');
             $table->foreign('category_id')->references('id')->on('categories');
             $table->timestamps();

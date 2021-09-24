@@ -6,7 +6,7 @@
     
 @if(Auth::user() && Auth::user()->isAdmin())
 <div class="row justify-content-center">
-    <div class="col-md-8">
+    <div class="col-lg-12">
         <div class="card">
             <div class="card-header">
                 Admino panelė
@@ -28,7 +28,7 @@
 </div>
 @endif
   <div class="row justify-content-center">
-    <div class="col-md-8">
+    <div class="col-lg-12">
       <div class="card">
         <div class="card-header">
             <h1>{{(count($chain) > 0)?$chain[count($chain)-1]->name :""}}</h1>
@@ -53,23 +53,27 @@
                 HOME
             @endif
              @foreach ($chain as $item)
-                 <a href="{{route('category.map',$item)}}"> {{$item->name}} ></a>
+                 @if(next($chain))
+                  <a class="chain" href="{{route('category.map',$item)}}"> {{$item->name}} ></a>
+                 @else
+                  <a class="chain chain-last" href="{{route('category.map',$item)}}"> {{$item->name}} </a>
+                 @endif
              @endforeach
          </div>
          
         <div class="card-body">
-        <table class="table table-striped">
-            <tbody>
+        {{-- <table class="table table-striped">
+            <tbody> --}}
 
 
             
 
 
             @foreach ($categories as $category)
-         
-            <tr>
+           
+             <tr>
               <td class=""> <a href="{{route('category.map',$category)}}"> {{$category->name}}</a></td>
-              {{-- <td class="align-middle text-center">{{$parameter->data_type}}</td> --}}
+             <td class="align-middle text-center">{{$parameter->data_type}}</td>
               <td class="align-middle text-center">
                 <a class="btn btn-primary" href="{{route('category.edit',[$category])}}">EDIT</a>
                 <form style="display: inline-block" method="POST" action="{{route('category.destroy', $category)}}">
@@ -77,29 +81,40 @@
                     <button class="btn btn-danger" type="submit">DELETE</button>
                   </form>
               </td>
-            </tr>
             @endforeach
             </tbody>
-          </table>
+          </table> 
 
         </div>
 
 
         <div class="card-body">
-            <table class="table table-striped">
+          @if(isset($items) )
+            {{-- <table class="table table-striped">
                 <tbody>
-    
+                  <tr>
+                    <th>pavadinimas</th>
+                    <th>kaina</th>
+                    <th class="text-center">valdymas</th>
+                  </tr> --}}
     
                 
     
-    
+             
                 @foreach ($items as $item)
-               
-                <tr>
+                <div  style="background-color: rgb(245, 238, 238);width:250px;height:350px; margin:5px; display:inline-block;">
+                  <div style="text-align:center;" >{{$item->name}}</div>
+                  <div style="border: solid red 1px; margin-left:25px; width:200px;height:200px"> </div>
+                  <div style="margin-left:25px; font-weight:900; font-size:18px;">{{$item->price}}€</div>
+                  <div style="margin-left:25px;" >Gamintojas: {{$item->manufacturer}}</div>
+                  <div style="margin-left:25px;" >Prekės likutis: {{$item->quantity}}</div>
+                </div>
+                {{-- <tr>
                     <td>{{$item->name}}</td>
+                    <td>{{$item->price}}</td>
                   {{-- <td class=""> <a href="{{route('item.map',$item)}}"> {{$item->name}}</a></td> --}}
                   {{-- <td class="align-middle text-center">{{$parameter->data_type}}</td> --}}
-                  <td class="align-middle text-center">
+                  {{-- <td class="align-middle text-center">
                     <a class="btn btn-primary" href="{{route('item.show',[$item])}}">SHOW</a>
                     <a class="btn btn-primary" href="{{route('item.edit',[$item])}}">EDIT</a>
                     <form style="display: inline-block" method="POST" action="{{route('item.destroy', $item)}}">
@@ -107,10 +122,11 @@
                         <button class="btn btn-danger" type="submit">DELETE</button>
                       </form>
                   </td>
-                </tr>
+                </tr> --}}
                 @endforeach
-                </tbody>
-              </table>
+                {{-- </tbody>
+              </table> --}}
+              @endif
               
             </div>
       </div>
