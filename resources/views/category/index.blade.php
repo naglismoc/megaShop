@@ -73,7 +73,7 @@
            
              <tr>
               <td class=""> <a href="{{route('category.map',$category)}}"> {{$category->name}}</a></td>
-             <td class="align-middle text-center">{{$parameter->data_type}}</td>
+             {{-- <td class="align-middle text-center">{{$parameter->data_type}}</td> --}}
               <td class="align-middle text-center">
                 <a class="btn btn-primary" href="{{route('category.edit',[$category])}}">EDIT</a>
                 <form style="display: inline-block" method="POST" action="{{route('category.destroy', $category)}}">
