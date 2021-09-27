@@ -102,13 +102,23 @@
     
              
                 @foreach ($items as $item)
-                <div  style="background-color: rgb(245, 238, 238);width:250px;height:350px; margin:5px; display:inline-block;">
-                  <div style="text-align:center;" >{{$item->name}}</div>
-                  <div style="border: solid red 1px; margin-left:25px; width:200px;height:200px"> </div>
-                  <div style="margin-left:25px; font-weight:900; font-size:18px;">{{$item->price}}€</div>
-                  <div style="margin-left:25px;" >Gamintojas: {{$item->manufacturer}}</div>
-                  <div style="margin-left:25px;" >Prekės likutis: {{$item->quantity}}</div>
-                </div>
+                <a href="#">
+                  <div class="Item">
+                    <div style="text-align:center;" >{{$item->name}}</div>
+                    <div style="border: solid red 1px; margin-left:25px; width:200px;height:200px; position: relative; ">
+                      @if(count($item->photos) > 0)
+                        <img style="max-height:200px;  position:absolute; top:50%;left:50%; transform:translate(-50%,-50%);" src="{{asset("/images/items/small/".$item->photos[0]->name)}}" alt=""> 
+                      @else
+                        <img style="max-height:200px;  position:absolute; top:50%;left:50%; transform:translate(-50%,-50%);" src="{{asset("/images/icons/itemDefault.png")}}" alt=""> 
+                      @endif
+                    </div>
+                    <div style="margin-left:25px; font-weight:900; font-size:18px;">{{$item->price}}€</div>
+                    <div style="margin-left:25px;" >Gamintojas: {{$item->manufacturer}}</div>
+                    <div style="margin-left:25px;" >Prekės likutis: {{$item->quantity}}</div>
+                    <a style="margin-left:80px;"  class="btn btn-danger" href="">Į krepšelį</a>
+                    {{-- <button style="margin-left:80px; z-index:99" class="btn btn-danger">Į krepšelį</button> --}}
+                  </div>
+                </a>
                 {{-- <tr>
                     <td>{{$item->name}}</td>
                     <td>{{$item->price}}</td>

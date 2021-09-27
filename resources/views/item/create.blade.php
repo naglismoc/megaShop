@@ -8,7 +8,7 @@
             <div class="card-header">Sukurti {{$category->name}} kategorijoje</div>
 
             <div class="card-body">
-               <form method="POST" action="{{route('item.store')}}" >
+               <form method="POST" action="{{route('item.store')}}"  enctype="multipart/form-data" >
                   <div class="form-group">
                       <label>Prekės pavadinimas</label>
                       <input type="text" name="name"  class="form-control">
@@ -53,6 +53,7 @@
                       <small class="form-text text-muted"></small>
                   </div>
                   @endforeach
+                  <input type="file" name="photos[]" id="" multiple>
                   @csrf
                   <button class="btn btn-success" type="submit">ADD</button>
                </form>

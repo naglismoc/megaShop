@@ -29,7 +29,8 @@ class CategoryController extends Controller
     }
 
     public function map(Category $category)
-    { $_SESSION['chain'][] =  $category;
+    {
+        $_SESSION['chain'][] =  $category;
         $tmpSs = [];
         foreach ($_SESSION['chain'] as $ssCat) {
             $tmpSs[] = $ssCat;
