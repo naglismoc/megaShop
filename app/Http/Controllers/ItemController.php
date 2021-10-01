@@ -42,6 +42,27 @@ class ItemController extends Controller
     public function store(Request $request)
     {
 
+
+        $validator = Validator::make($request->all(),
+        [
+            
+            'photos[]' => ['mimes:jpg,bmp,png'],
+            'file' => ['max:50120'],
+            'attachments' => ['max:3'],
+            'photos.*' => ['mimes:jpeg,jpg,png,gif','max:5120'],
+        ],
+        [
+            'photos.*.mimes' => '*Vienas iš failų nėra nuotrauka.',
+            'photos.max' => '*Galite turėti ne daugiau 10 nuotraukų.',
+            'photos.*.max' => '*Viena nuotrauka turi neviršyti 5MB.',
+            'photos.image' => '*Visi failai turi būti nuotraukos',
+            'file' => '*Nuotraukos dydis turi neviršyti 5MB  '
+        ]);
+         if ($validator->fails()) {
+            $request->flash();
+            return redirect()->back()->withErrors($validator);
+        }
+
         $item = new Item();
         $item->name = $request->name;
         $item->price = $request->price;
@@ -50,6 +71,10 @@ class ItemController extends Controller
         $item->category_id = $request->category_id;
         $item->discount = $request->discount;
         $item->manufacturer = $request->manufacturer;
+        $item->status = 0;
+        if(isset($request->show)){
+            $item->status = 10;
+        }
         $item->save();
         $category = Category::find($request->category_id);
         foreach ($category->parameters as $parameter) {
@@ -90,8 +115,9 @@ class ItemController extends Controller
      * @param  \App\Models\Item  $item
      * @return \Illuminate\Http\Response
      */
-    public function show(Item $item)
-    {
+    public function show( $id)
+    {  
+        $item = Item::find((((((($id/124)-6)/13)-7)/3)-6)/3);
       return view("item.show",['item'=>$item]);
     }
 
@@ -106,6 +132,16 @@ class ItemController extends Controller
         //
     }
 
+    public function softDelete(Request $request, Item $item)
+    {
+        if( $request->softDelete == 1){
+            $item->status = 0;
+        }else{
+            $item->status = 10;
+        }
+        $item->save();
+       return redirect()->back();
+    }
     /**
      * Update the specified resource in storage.
      *

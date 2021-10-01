@@ -102,22 +102,31 @@
     
              
                 @foreach ($items as $item)
-                <a href="#">
-                  <div class="Item">
+                {{-- <a href="#sis_varijantas_disablina_ir_kortele"  class="{{($item->status==0)?"avoid-clicks":""}}" > --}}
+                  <a href="{{route('item.show', ( ( (  ( (  ($item->id*3)  +6)  *3)  +7) *13) +6)* 124) }}" >
+                  <div class="Item {{($item->status==0)?"disabled":""}}">
                     <div style="text-align:center;" >{{$item->name}}</div>
-                    <div style="border: solid red 1px; margin-left:25px; width:200px;height:200px; position: relative; ">
-                      @if(count($item->photos) > 0)
-                        <img style="max-height:200px;  position:absolute; top:50%;left:50%; transform:translate(-50%,-50%);" src="{{asset("/images/items/small/".$item->photos[0]->name)}}" alt=""> 
+                      <div style="border: solid red 1px; margin-left:10px; width:230px;height:230px; position: relative; ">
+                        @if(count($item->photos) > 0)
+                          <img style="max-height:230px;  width:100%; position:absolute; top:50%;left:50%; transform:translate(-50%,-50%);" src="{{asset("/images/items/small/".$item->photos[0]->name)}}" alt=""> 
+                        @else
+                          <img style="max-height:230px;    position:absolute; top:50%;left:50%; transform:translate(-50%,-50%);" src="{{asset("/images/icons/itemDefault.png")}}" alt=""> 
+                        @endif
+                      </div>
+                      @if($item->discount > 0)
+                      <div style="margin-left:25px; text-decoration:line-through; text-decoration-thickness: 2px; font-weight:900; font-size:18px; position:relative">{{$item->price}}€
+                        <div  style="position:absolute; padding: 0 7px;  background-color:blue; color:yellow;  transform: rotate(-12deg); font-size:25px; bottom:35px; right:20px;">{{$item->discountPrice()}} </div>
                       @else
-                        <img style="max-height:200px;  position:absolute; top:50%;left:50%; transform:translate(-50%,-50%);" src="{{asset("/images/icons/itemDefault.png")}}" alt=""> 
-                      @endif
+                      <div style="margin-left:25px; font-weight:900; font-size:18px; position:relative">{{$item->price}}€
+                          
+                        @endif
+                      </div>
+                      <div style="margin-left:25px;" >Gamintojas: {{$item->manufacturer}}</div>
+                      <div style="margin-left:25px;" >Prekės likutis: {{$item->quantity}}</div>
+                      <object><a style="margin-left:80px;"  {{($item->status==0)?"avoid-clicks":""}}  class="btn btn-danger" href="">Į krepšelį</a> </object>
+                      {{-- <button style="margin-left:80px; z-index:99" class="btn btn-danger">Į krepšelį</button> --}}
+                      <div class="heart"></div>
                     </div>
-                    <div style="margin-left:25px; font-weight:900; font-size:18px;">{{$item->price}}€</div>
-                    <div style="margin-left:25px;" >Gamintojas: {{$item->manufacturer}}</div>
-                    <div style="margin-left:25px;" >Prekės likutis: {{$item->quantity}}</div>
-                    <a style="margin-left:80px;"  class="btn btn-danger" href="">Į krepšelį</a>
-                    {{-- <button style="margin-left:80px; z-index:99" class="btn btn-danger">Į krepšelį</button> --}}
-                  </div>
                 </a>
                 {{-- <tr>
                     <td>{{$item->name}}</td>

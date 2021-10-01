@@ -38,6 +38,11 @@
                <input type="text" name="quantity"  class="form-control">
                {{-- <small class="form-text text-muted">Parametro pavadinimas.</small> --}}
            </div>
+           <div class="form-group">
+            <label>Rodyti prekę</label>
+            <input type="checkbox" name="show" id="">
+            {{-- <small class="form-text text-muted">Parametro pavadinimas.</small> --}}
+        </div>
            
            <div class="form-group">
             <label>Nuolaida</label>
