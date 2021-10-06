@@ -36,14 +36,16 @@
     -moz-box-shadow: 0px 1px 10px 3px rgba(171,136,136,0.69);
     border: gray solid 2px;
 }
-.disabled{
+.inactive{
     opacity: 0.5;
 }
 
 .avoid-clicks {
     pointer-events: none;
   }
-
+.bg-redish{
+    background-color: rgba(240, 149, 121, 0.836);
+}
   .heart{
       height:25px;
       width:25px;

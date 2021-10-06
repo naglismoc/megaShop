@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
+<div id="showItem"></div>
 <div class="container">
    <div class="row justify-content-center">
       <div class="col-md-8">
@@ -65,14 +66,18 @@
                 {{$param->title}} {{$param->pivot->data}} {{$param->data_type}} <br>
                 @endforeach
 
-                <form action="{{route('item.softDelete',$item)}}" method="post">
-                    @csrf
-                    @if ($item->status == 10)
-                        <button class="btn btn-primary" type="submit" name="softDelete" value=1 >disable</button>   
-                    @else
-                        <button class="btn btn-success" type="submit" name="softDelete" value=0 >enable</button>
-                    @endif
-                </form>
+                @if (Auth::user() && Auth::user()->isAdministrator())
+                    
+               
+                    <form action="{{route('item.softDelete',$item)}}" method="post">
+                        @csrf
+                        @if ($item->status == 10)
+                            <button class="btn btn-primary" type="submit" name="softDelete" value=1 >disable</button>   
+                        @else
+                            <button class="btn btn-success" type="submit" name="softDelete" value=0 >enable</button>
+                        @endif
+                    </form>
+                @endif
                </div>
          </div>
       </div>

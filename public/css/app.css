@@ -10042,12 +10042,16 @@ h3 {
   border: gray solid 2px;
 }
 
-.disabled {
+.inactive {
   opacity: 0.5;
 }
 
 .avoid-clicks {
   pointer-events: none;
+}
+
+.bg-redish {
+  background-color: rgba(240, 149, 121, 0.836);
 }
 
 .heart {

@@ -7,7 +7,6 @@
 // console.log(window.location.href.includes("show")," esu prekeje");
 
 if(document.getElementById("searchBar")){
-  
 
     let input = document.getElementById('searchBar');
     let timeout = null;

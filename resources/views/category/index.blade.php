@@ -33,7 +33,7 @@
         <div class="card-header">
             <h1>{{(count($chain) > 0)?$chain[count($chain)-1]->name :""}}</h1>
 
-
+          <input id="searchBar" type="text" name="search">
             {{-- <form action="{{route('category.update',$chain[count($chain)-1])}}" method="post">
                 @csrf
                 <select name="" id="">
@@ -102,9 +102,13 @@
     
              
                 @foreach ($items as $item)
+                @if( (!Auth::user() && $item->status==0) || 
+                  (Auth::user() && !Auth::user()->isAdministrator() && $item->status==0)  )
+                  @continue
+                @endif
                 {{-- <a href="#sis_varijantas_disablina_ir_kortele"  class="{{($item->status==0)?"avoid-clicks":""}}" > --}}
                   <a href="{{route('item.show', ( ( (  ( (  ($item->id*3)  +6)  *3)  +7) *13) +6)* 124) }}" >
-                  <div class="Item {{($item->status==0)?"disabled":""}}">
+                  <div class="Item  {{ ($item->status==0) ? " bg-redish " :( ($item->quantity==0)?" inactive ":"" ) }}">
                     <div style="text-align:center;" >{{$item->name}}</div>
                       <div style="border: solid red 1px; margin-left:10px; width:230px;height:230px; position: relative; ">
                         @if(count($item->photos) > 0)
@@ -123,7 +127,7 @@
                       </div>
                       <div style="margin-left:25px;" >Gamintojas: {{$item->manufacturer}}</div>
                       <div style="margin-left:25px;" >Prekės likutis: {{$item->quantity}}</div>
-                      <object><a style="margin-left:80px;"  {{($item->status==0)?"avoid-clicks":""}}  class="btn btn-danger" href="">Į krepšelį</a> </object>
+                      <object><a style="margin-left:80px;"  {{($item->status==0 ||$item->quantity==0)?"avoid-clicks":""}}  class="btn btn-danger" href="">Į krepšelį</a> </object>
                       {{-- <button style="margin-left:80px; z-index:99" class="btn btn-danger">Į krepšelį</button> --}}
                       <div class="heart"></div>
                     </div>
