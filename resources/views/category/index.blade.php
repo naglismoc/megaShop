@@ -32,8 +32,17 @@
       <div class="card">
         <div class="card-header">
             <h1>{{(count($chain) > 0)?$chain[count($chain)-1]->name :""}}</h1>
+     
+            
+            <div class="dropdown">
+              {{-- <button  id="searchBtn" class="dropbtn btn btn-primary">Dropdown</button> --}}
+              <div id="myDropdown" class="dropdown-content show">
+                <input type="text" placeholder="Search.." id="searchBar" autocomplete="off">
+                <div id="lines"></div>
+              </div>
+            </div>
 
-          <input id="searchBar" type="text" name="search">
+
             {{-- <form action="{{route('category.update',$chain[count($chain)-1])}}" method="post">
                 @csrf
                 <select name="" id="">
@@ -157,3 +166,7 @@
   </div>
 </div>
 @endsection
+<script>
+  let urlSearchBar = "{{route('item.searchBar')}}";
+</script>
+

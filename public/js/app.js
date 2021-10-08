@@ -2176,23 +2176,78 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 /*!*********************************!*\
   !*** ./resources/js/testAPI.js ***!
   \*********************************/
-/***/ (() => {
+/***/ ((__unused_webpack_module, __unused_webpack_exports, __webpack_require__) => {
 
 // if(document.getElementById("showItem")){
 // console.log("sveiki");
 // }
-// console.log(window.location.href.includes("map")," vaikstau po kategorijas");
+var _require = __webpack_require__(/*! axios */ "./node_modules/axios/index.js"),
+    axios = _require["default"]; // console.log(window.location.href.includes("map")," vaikstau po kategorijas");
 // console.log(window.location.href.includes("show")," esu prekeje");
-if (document.getElementById("searchBar")) {
-  var input = document.getElementById('searchBar');
-  var timeout = null;
+
+
+var drpDwn = document.getElementById("lines");
+var searchBar = document.getElementById("searchBar");
+
+if (searchBar) {
+  // searchBar.addEventListener('keyup',sbr );
   searchBar.addEventListener('keyup', function (e) {
+    var timeout = null;
     clearTimeout(timeout);
     timeout = setTimeout(function () {
-      console.log('Value:', searchBar.value);
+      var txt = searchBar.value;
+      axios.post(urlSearchBar, {
+        searchBar: searchBar.value
+      }).then(function (response) {
+        console.log(response.data.items);
+        var HTML = '';
+        response.data.items.forEach(function (item) {
+          HTML += ' <a href="#">' + item["name"] + '</a>';
+        });
+        drpDwn.innerHTML = HTML;
+        document.getElementById('searchBar').focus(); // sbr();
+      }); // console.log('Value:', searchBar.value);
     }, 700);
   });
-}
+} // function sbr() {
+//     let timeout = null;
+//     searchBar.addEventListener('keyup', function (e) {
+//         clearTimeout(timeout);
+//         timeout = setTimeout(function () {
+//             let txt = searchBar.value;
+//             axios.post(urlSearchBar,{
+//                 searchBar : searchBar.value
+//             })
+//             .then(function(response){
+//                 console.log(response.data.items);
+//                 let drpDwn = document.getElementById("myDropdown");
+//                 let HTML ='<input type="text" placeholder="Search.." id="searchBar">';
+//                 response.data.items.forEach(item => {
+//                     HTML += ' <a href="#">'+item["name"]+'</a>';
+//                 });
+//                 drpDwn.innerHTML = HTML;
+//                 document.getElementById('searchBar').value = txt;
+//                 document.getElementById('searchBar').focus();
+//                 sbr();
+//             });
+//             // console.log('Value:', searchBar.value);
+//         }, 700);
+//     });
+// }
+
+
+document.getElementById('myDropdown').addEventListener('focusout', function () {
+  drpDwn.innerHTML = "";
+}); // document.getElementById('myDropdown').addEventListener('mouseout',function(){
+// drpDwn.innerHTML = "";
+// });
+// axios.get(url)
+// .then(function(response){
+//     console.log(response.data.msg);
+// });
+//plain js (fetch)
+//ajax 
+//axios
 
 /***/ }),
 

@@ -8,7 +8,7 @@ use App\Models\Photo;
 use Illuminate\Http\Request;
 use Intervention\Image\ImageManagerStatic as Image;
 use Str;
-
+use Response;
 
 class ItemController extends Controller
 {
@@ -21,7 +21,18 @@ class ItemController extends Controller
     {
         //
     }
+  
 
+    public function searchBar(Request $request)
+    {
+        $items = Item::where('name','like','%'.$request->searchBar.'%')->get();
+       return Response::json([
+           'status' => 200,
+           'msg' => "sveikinu, jūs kreipėtės į serverį per API ir gavote atsakymą is POST",
+           'searchBar' => $request->searchBar,
+           'items' => $items
+       ]);
+    }
     /**
      * Show the form for creating a new resource.
      *
@@ -131,6 +142,8 @@ class ItemController extends Controller
     {
         //
     }
+
+
 
     public function softDelete(Request $request, Item $item)
     {
