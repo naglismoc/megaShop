@@ -9,30 +9,23 @@ const { default: axios } = require("axios");
 // console.log(window.location.href.includes("show")," esu prekeje");
 let drpDwn = document.getElementById("lines");
 let searchBar = document.getElementById("searchBar");
+
 if(searchBar){
    
-    // searchBar.addEventListener('keyup',sbr );
     searchBar.addEventListener('keyup', function (e) {
         let timeout = null;
         clearTimeout(timeout);
         timeout = setTimeout(function () {
-            let txt = searchBar.value;
             axios.post(urlSearchBar,{
                 searchBar : searchBar.value
             })
             .then(function(response){
-                console.log(response.data.items);
-                
                 let HTML ='';
                 response.data.items.forEach(item => {
                     HTML += ' <a href="#">'+item["name"]+'</a>';
                 });
                 drpDwn.innerHTML = HTML;
-                document.getElementById('searchBar').focus();
-                // sbr();
             });
-
-            // console.log('Value:', searchBar.value);
         }, 700);
     });
    
