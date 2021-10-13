@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Intervention\Image\ImageManagerStatic as Image;
 use Str;
 use Response;
+use Auth;
 
 class ItemController extends Controller
 {
@@ -25,7 +26,15 @@ class ItemController extends Controller
 
     public function searchBar(Request $request)
     {
-        $items = Item::where('name','like','%'.$request->searchBar.'%')->get();
+
+    //     if( (!Auth::user() && $this->status==0) || 
+    //     (Auth::user() && !Auth::user()->isAdministrator() && $this->status==0)  ){
+    //     return;
+    //  }
+
+        $items = Item::with(['photos'])->where('name','like','%'.$request->searchBar.'%')->get();
+        // $questions = Question::with(['options', 'category'])->get();
+        dd($items[0]->photos);
        return Response::json([
            'status' => 200,
            'msg' => "sveikinu, jūs kreipėtės į serverį per API ir gavote atsakymą is POST",

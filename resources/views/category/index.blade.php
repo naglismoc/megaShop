@@ -125,5 +125,6 @@
 <script>
   let urlSearchBar = "{{route('item.searchBar')}}";
   let itemShow = "{{route('item.show',1)}}"; 
+  var url = '{{ URL::asset('/images/') }}';
 </script>
 

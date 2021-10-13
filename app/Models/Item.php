@@ -30,10 +30,7 @@ class Item extends Model
     } 
     public function card()
     {
-        if( (!Auth::user() && $this->status==0) || 
-        (Auth::user() && !Auth::user()->isAdministrator() && $this->status==0)  ){
-        return;
-     }
+   
        $HTML =  '<a href="' .route('item.show', ( ( (  ( (  ($this->id*3)  +6)  *3)  +7) *13) +6)* 124) . '" >
         <div class="Item '; 
         if($this->status==0) {
