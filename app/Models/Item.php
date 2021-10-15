@@ -59,7 +59,7 @@ class Item extends Model
             $HTML.= ' <div style="margin-left:25px;" >Prekės likutis: '.$this->quantity.'</div>';
             $HTML.= '<object><a style="margin-left:80px;"  '.($this->status==0 ||$this->quantity==0)?"avoid-clicks":"".'  class="btn btn-danger" href="">Į krepšelį</a> </object>';
            
-            $HTML.= '  <div class="heart"></div>
+            $HTML.= '  <a href="javascript:void(0)/'.$this->id.'" value="20"> <div class="heart"></div></a>
           </div>
       </a> ';
       return $HTML;

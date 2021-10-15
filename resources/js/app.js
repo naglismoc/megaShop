@@ -33,3 +33,4 @@ const app = new Vue({
 
 
 require('./testAPI');
+require('./heart');

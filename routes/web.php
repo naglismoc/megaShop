@@ -61,4 +61,6 @@ Route::group(['prefix' => 'categories'], function(){
  });
 
  Route::post('searchBar', [ItemController::class, 'searchBar'])->name('item.searchBar');
+ Route::post('heart', [ItemController::class, 'heart'])->name('item.heart');
+ Route::get('heart2', [ItemController::class, 'heart2'])->name('item.heart2');
 

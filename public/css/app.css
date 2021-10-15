@@ -10055,12 +10055,37 @@ h3 {
 }
 
 .heart {
-  height: 25px;
-  width: 25px;
-  background-color: red;
+  position: relative;
+  width: 20px;
+  height: 20px;
+  transform: rotate(45deg);
+  background-color: #fa4242;
+}
+
+.heart:before,
+.heart:after {
   position: absolute;
-  bottom: 10px;
-  left: 10px;
+  width: 20px;
+  height: 20px;
+  content: "";
+  border-radius: 50%;
+  background-color: #fa4242;
+}
+
+.heart:before {
+  bottom: 0px;
+  left: -10px;
+}
+
+.heart:after {
+  top: -10px;
+  right: 0px;
+}
+
+.liked,
+.liked:before,
+.liked:after {
+  background-color: #42fa6a;
 }
 
 /* Dropdown Button */

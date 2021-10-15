@@ -22,7 +22,9 @@ class ItemController extends Controller
     {
         //
     }
-  
+    public function __construct(){
+        session_start();
+    }
 
     public function searchBar(Request $request)
     {
@@ -141,7 +143,23 @@ class ItemController extends Controller
         $item = Item::find((((((($id/124)-6)/13)-7)/3)-6)/3);
       return view("item.show",['item'=>$item]);
     }
-
+    public function heart( Request $request)
+    {  
+       $_SESSION['heart'][$request->id];
+    //    dd($request->id);
+       return Response::json([
+        'status' => 200,
+        'session' => $_SESSION['heart']
+    ]);
+    }
+    public function heart2( )
+    {  
+        dd($_SESSION);
+       return Response::json([
+        'status' => 200,
+        'session' => $_SESSION
+    ]);
+    }
     /**
      * Show the form for editing the specified resource.
      *
