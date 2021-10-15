@@ -2200,14 +2200,23 @@ if (searchBar) {
       }).then(function (response) {
         var HTML = '';
         var counter = 0;
+        console.log(response.data);
 
         for (var i = 0; i < response.data.items.length; i++) {
           var item = response.data.items[i]; // }
 
-          HTML += ' <a href="' + itemShow.substring(0, itemShow.length - 1) + +(((item['id'] * 3 + 6) * 3 + 7) * 13 + 6) * 124 + '">' + item["name"] + '</a>';
+          HTML += ' <a href="' + itemShow.substring(0, itemShow.length - 1) + +(((item['id'] * 3 + 6) * 3 + 7) * 13 + 6) * 124 + '">';
+
+          if (item['photos'] != null && item['photos'].length > 0) {
+            HTML += ' <img style="width:50px; max-height:50px;" src="' + url + '/items/small/' + item['photos'][0]['name'] + '" alt="">';
+          } else {
+            HTML += ' <img style="width:25px; max-height:25px;" src="' + url + '/icons/itemDefault.png" alt=""> ';
+          }
+
+          HTML += item["name"] + '</a>';
 
           if (++counter == 10) {
-            console.log(counter);
+            // console.log(counter);
             drpDwn.innerHTML = HTML;
             return;
           }
@@ -2245,8 +2254,8 @@ function generateCard(item) {
 
   HTML += "\">\n      <div style=\"text-align:center;\" > " + item['name'] + "</div>\n        <div style=\"border: solid red 1px; margin-left:10px; width:230px;height:230px; position: relative; \">";
 
-  if (item['photos'] != undefined && item['photos'].length > 0) {
-    HTML += ' <img style="max-height:230px;  width:100%; position:absolute; top:50%;left:50%; transform:translate(-50%,-50%);" src="' + url + '/items/small/"' + item['photos'][0]['name'] + '" alt="">';
+  if (item['photos'] != null && item['photos'].length > 0) {
+    HTML += ' <img style="max-height:230px;  width:100%; position:absolute; top:50%;left:50%; transform:translate(-50%,-50%);" src="' + url + '/items/small/' + item['photos'][0]['name'] + '" alt="">';
   } else {
     HTML += ' <img style="max-height:230px;    position:absolute; top:50%;left:50%; transform:translate(-50%,-50%);" src="' + url + '/icons/itemDefault.png" alt=""> ';
   }

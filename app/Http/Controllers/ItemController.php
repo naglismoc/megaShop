@@ -32,9 +32,10 @@ class ItemController extends Controller
     //     return;
     //  }
 
+        // $items = Item::where('name','like','%'.$request->searchBar.'%')->get();
         $items = Item::with(['photos'])->where('name','like','%'.$request->searchBar.'%')->get();
         // $questions = Question::with(['options', 'category'])->get();
-        dd($items[0]->photos);
+        // dd($items[0]->photos);
        return Response::json([
            'status' => 200,
            'msg' => "sveikinu, jūs kreipėtės į serverį per API ir gavote atsakymą is POST",
