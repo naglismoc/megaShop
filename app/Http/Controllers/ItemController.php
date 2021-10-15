@@ -145,9 +145,11 @@ class ItemController extends Controller
     }
     public function heart( Request $request)
     {  
-       $_SESSION['heart'][$request->id];
-    //    dd($request->id);
-       return Response::json([
+        if(!isset($_SESSION['heart'])){
+            $_SESSION['heart'] = [];   
+        }
+        $_SESSION['heart'][] = $request->id;
+        return Response::json([
         'status' => 200,
         'session' => $_SESSION['heart']
     ]);
